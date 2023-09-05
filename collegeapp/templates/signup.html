@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <div class="nav">
+        <h1 class="text" style="margin-left: 40%;">Registration</h1>
+    </div>
+    <!-- <div class="container">
+        {% for message in messages %}
+    <h5>
+        <div class="alert alert-danger mt-5" style="width: 50%;">
+            {{ message }}
+        </div>
+    </h5>
+        {% endfor %}
+    </div> -->
+    <div class="container bg-light" style="border-radius: 10px; width:50%; color:white">
+        <div class="formdiv" style="background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(7,21,174,1) 35%, rgba(0,212,255,1) 100%); width: 100%; margin: auto;  border-radius: 20px;">
+
+        <form action="{% url 'usercreate' %}" method="post" class="form pt-5 pb-5" style="width: 80%; margin-left:10%"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="">First Name</label>
+            <input type="text" name="first_name" class="form-control" placeholder="First Name"><br>
+            <label for="">Last Name</label>
+            <input type="text" name="last_name" class="form-control" placeholder="Last Name"><br>
+            <label for="">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Username"><br>
+            <label for="">Address</label>
+            <!-- <input type="text" name="address" class="form-control" placeholder="Address"><br> -->
+            <textarea name="address" id="" cols="60" rows="3"></textarea><br>
+            <label for="">Age</label>
+            <input type="number" name="age" class="form-control" placeholder="Age"><br>
+            <label for="">Gender</label>
+            <!-- <input type="text" name="gender" class="form-control" placeholder="Gender"><br> -->
+            <!-- <input type="radio" name="gender" value="male">
+            <label for="">Male</label>
+            <input type="radio" name="gender" value="female">
+            <label for="">Female</label><br> -->
+
+            <select name="gender">
+                <option value="" >Please select one…</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+           </select><br>
+
+            <label for="">Phone</label>
+            <input type="text" name="phone" class="form-control" placeholder="phone"><br>
+            <label for="">Email</label>
+
+            <input type="email" name="email" class="form-control" placeholder="Email"><br>
+            <label for="">Course</label>
+            <select class="form-control mt-3 mb-3" name="course" id="qwerty">
+                <option value="">Select Course</option>
+
+                {% for i in courses %}
+
+                <option value="{{ i.id }}">{{ i.crs_name }}</option>
+
+                {% endfor %}
+            </select>
+
+            <input type="file" name="file" class="form-control" accept="image/*"><br>
+            <label for="">Password</label>
+
+            <input type="password" name="password" class="form-control" placeholder="Strong Password"><br>
+            <label for="">Confirm Password</label>
+
+            <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password"><br>
+
+            <button type="submit" class="btn btn-outline-info" style="margin-left: 40%;">Submit</button>
+            <br>
+            <p class='text-muted'>Already a member. <a href="{% url 'loginpage' %}">Login</a></p>
+        </form>
+        </div>
+    </div>
+
+
+</body>
+<style>
+    
+</style>
+</html>
+
+
+

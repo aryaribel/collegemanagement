@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type=text],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Clear floats after the columns */
+        .row::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        a {
+            padding-left: 1000px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid bg-dark">
+            <a class="navbar-brand" href="" style="font-weight: 1000;">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}" style="font-weight: 1000;">Logout</a>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <div class="card mb-3" style="max-width: 90vw; background-color:  #f2f2f2;; margin-left: 50px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {%if teacher.t_image %}
+                <img src="{{ teacher.t_image.url }}" class="w-100 p-5">
+                <div>
+                    <a href="{% url 'remove_image' teacher.id %}" class="p-5">
+                        <button type="button" class="btn btn-secondary">Remove Image</button>
+
+                    </a>
+                </div>
+                {% else %}
+                <img src="{% static 'images/pic1.jpg' %}" class="img-fluid rounded-start" alt="..."
+                    style="padding-left: 50px; padding-top: 40px;">
+                {% endif %}
+
+            </div>
+            <div class="col-md-8">
+                <div class="card-body ">
+                    <h5 class="card-title">Teacher Details...!!</h5>
+
+                    <div class="container">
+                        <form action=" {% url 'update_details' teacher.teacher.id %}" method="POST"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="fname">First Name</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="fname" name="first_name" placeholder="Your name.."
+                                        value="{{teacher.teacher.first_name}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="lname">Last Name</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="lname" name="last_name" placeholder="Your last name.."
+                                        value="{{teacher.teacher.last_name}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="phone">Phone Number</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="ph" name="phone" placeholder="Your phone number.."
+                                        value="{{teacher.t_phone}}">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="age">Age</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="number" id="age" name="age" placeholder="Your age.."
+                                        value="{{teacher.t_age}}">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="gender">Gender</label>
+                                </div>
+                                <div class="col-75">
+
+                                    <!-- <input type="radio" name="gender" value="male">
+                                    <label for="">Male</label>
+                                    <input type="radio" name="gender" value="female">
+                                    <label for="">Female</label><br> -->
+                                    <select name="gender" id="genderInput">
+                                        <option value="">Please select one…</option>
+                                        <option value="female">Female</option>
+                                        <option value="male">Male</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="phone">Email</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="em" name="email" placeholder="Your email.."
+                                        value="{{teacher.t_email}}">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="phone">Courses</label>
+                                </div>
+                                <div class="col-75">
+                                    <select class="form-select m-auto bs-inner bordered border-dark" name="course"
+                                        id="courseInput">
+                                        <option value="">Select a Course</option>
+                                        {% for i in courses %}
+                                        <option value="{{i.id}}">{{ i.crs_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <script>
+                                        window.onload = function () {
+                                            const $genderSelect = document.querySelector("#genderInput");
+                                            const $courseSelect = document.querySelector("#courseInput");
+                                            $genderSelect.value = `{{teacher.t_gender}}`;
+                                            $courseSelect.value = `{{teacher.course.id}}`;
+                                        }
+                                    </script>
+
+                                    <!-- <input type="text" id="cour" name="course" placeholder="Your course.."
+                                        value="{{teacher.course.crs_name}}"> -->
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="subject">Address</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="subject" name="address" placeholder="Write something.."
+                                        style="height:100px" value="{{teacher.t_address}}"></input>
+                                </div>
+                            </div>
+                            <input type="file" name="file" class="form-control mt-3" accept="image/*">
+
+
+
+                            <br>
+                            <div class="row">
+
+
+
+                                <input type="submit" class="btn btn-primary" style="margin-left: 20px;"
+                                    value="update"></input>
+                        </form>
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                            style="margin-left: 20px;">Delete</button>
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="/delete_teacher/{{ teacher.id }}">
+
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Yes</button>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+
+
+</body>
+
+</html>
